@@ -1,193 +1,105 @@
-# Python_learning Agent 
+Python Learning Guardrail System 
+Introduction
+This system is a structured, AI-powered learning platform designed to guide users from Python beginners to professionals. It follows a comprehensive roadmap (as visualized in the provided image below), ensuring deep mastery through incremental, multi-turn interactions, project-based learning, and rigorous validation. The core engine is defined in GEMINI.md, which enforces rules for teaching, progress tracking, and artifact validation. The curriculum is detailed in Python_prompts_guardrail.md, covering basics, data structures, algorithms, OOP, concurrency, frameworks, tools, and testing.
+The system prioritizes depth over speed, using a "setup-wizard" style where the AI acts as a patient teacher. Progress is stored in filesystem evidence (code files and notes), allowing persistent state across sessions.
+Roadmap Overview
+The provided roadmap image outlines the Python learning path:
 
-## Documentation
-#### PART 1: FEATURE PLAN & TODO LIST
-##### Feature Goal
-Create a **Python Learning Co-Pilot Agent** that:
-- Teaches Python strictly following the uploaded roadmap [[https://drive.google.com/file/d/1La7jlLcIpGHvOpBPahFGOtnTGpZcGZLi/view?usp=drive_link]]
-- Starts from absolute beginner and advances to professional level 
-- Enforces mastery before progression
-- Uses continuous practice with **interconnected mini-projects**    
-- Acts as teacher, reviewer, debugger, mentor, and evaluator
-- Produces one **final capstone project** built incrementally across sessions
-- Recommends next learning agents via GitHub upon roadmap completion
-### Phase 1: Core Learning Engine
-**TODO**
-- Define staged learning levels:
-  Beginner
-    - Intermediate
-    - Professional
-- Map roadmap topics into ordered stages
-- Enforce prerequisite checks before advancing
-- Implement “teach → example → exercise → review → improve” loop
-### Phase 2: Continuous Project System
-**TODO**
-- Define a **single evolving project prefix** (e.g., `python_core_app`)
-- Each session:
-    - Adds a feature
-    - Refactors previous code
-    - Introduces new concepts
-- Maintain logical continuity across sessions
-- Finalize into a professional-grade project
-### Phase 3: Code Evaluation & Debugging
-**TODO**
-- Analyze learner code for:
-    - Syntax correctness
-    - Logical correctness
-    - Conceptual usage
-    - Readability
-- Explain errors in plain English
-- Offer layered hints (no solution dumping)
-- Enforce correction before progression
-### Phase 4: Progress Monitoring & Adaptation
-**TODO**
-- Track:
-    - Covered topics 
-    - Errors repeated
-    - Strengths and weaknesses
-- Adjust lesson depth dynamically
-- Block advanced topics if fundamentals are weak
-- Periodically summarize learner progress
-### Phase 5: Completion & Recommendation
-**TODO**
-- Validate roadmap completion
-- Review final project quality
-- Recommend GitHub agent repository:
-    - `https://github.com/Nooran3994/Learn-develop-and-Earn-.git_github-Agents-.git`
-- Suggest next specialization paths
+Learn the Basics: Basic Syntax, Variables and Data Types, Conditionals, Loops, Type Casting, Exceptions, Functions/Builtin Functions, Lists/Tuples/Sets, Dictionaries.
+Data Structures & Algorithms: Arrays and Linked Lists, Heaps/Stacks/Queues, Hash Tables, Binary Search Tree, Recursion, Sorting Algorithms.
+Modules: Builtin/Custom.
+Paradigms: Lambdas, Decorators, Iterators, Regular Expressions, List Comprehensions, Generator Expressions, Context Manager.
+Object Oriented Programming: Classes, Inheritance, Methods/Dunder.
+Package Managers: PyPI, Pip, Conda, Poetry, uv.
+Common Packages.
+Configuration: pyproject.toml.
+Learn a Framework: Synchronous (Pyramid, Plotly Dash), Asynchronous (gevent, aiohttp, Tornado, Sanic), Sync+Async (FastAPI, Django, Flask).
+Concurrency: Multiprocessing, Asynchrony, GIL, Threading.
+Environments: Pipenv, virtualenv, pyenv.
+Static Typing: typing, mypy, pyright, pyre, Pydantic.
+Code Formatting: yapf, black, ruff.
+Documentation: Sphinx.
+Testing: tox, nose, unittest/pyUnit, doctest, pytest.
 
-## Python_learner.git_github.Agent 
-name: Python Learning Co-Pilot
-model: claude-haiku-4.5
-target: chat
-infer: true
+This matches the prompts in Python_prompts_guardrail.md, divided into stages (Beginner, Intermediate, Advanced).
+(For visual reference, see the roadmap image attached to this query or in the repository as python_roadmap.png.)
+System Components
+Key Files
 
-tools:
-  - name: python-code-evaluator
-    description: |
-      Used to reason about, evaluate, and mentally simulate Python code.
-      Checks correctness, logic flow, data handling, and roadmap alignment
-      without executing code.
+GEMINI.md: The "execution law" defining AI behavior, rules, validation protocols, and structure. Load this to initialize the engine.
+Python_prompts_guardrail.md: The curriculum ledger with detailed prompts, concepts, exercises, and evaluations.
+Python_Learning_Guardrail_Agent.md: Defines the AI agent's role and constraints (e.g., strict scope control).
+.gemini/ Directory: Hidden folder for state persistence.
+Notes/: Auto-generated .md files summarizing each completed prompt (e.g., Prompt_01_Basic_Syntax.md).
+projects/:
+main.py: Evolving project entry point for validated code.
+practice.py: Sandbox for experiments and debugging.
 
-  - name: exercise-grader
-    description: |
-      Grades learner exercises against roadmap expectations.
-      Evaluates correctness, structure, readability, and concept mastery.
-      Produces structured feedback with improvement guidance.
 
-  - name: lesson-setup-wizard
-    description: |
-      Initializes lessons strictly following the uploaded Python roadmap.
-      Determines learner level, verifies prerequisites, and structures
-      content depth dynamically.
 
-  - name: progress-tracker
-    description: |
-      Tracks topics covered, exercises attempted, errors made,
-      improvements achieved, and readiness to advance.
-      Prevents skipping foundational knowledge.
+How the System Works
 
-  - name: debugging-assistant
-    description: |
-      Analyzes Python errors and faulty logic.
-      Explains issues in plain language and guides corrections
-      without immediately providing full solutions.
+Stateful Learning: Progress is tracked via files in .gemini/. The AI inspects this on startup to resume from the last incomplete prompt.
+Multi-Turn Teaching: Each prompt requires 10-15+ interactions. The AI teaches sub-concepts incrementally, asks for code attempts, discusses errors, and relates to real-world applications.
+Validation: Type "Proceed" to trigger a 5-step check (filesystem, concept coverage, depth, grading, action). Only pass if mastery is demonstrated.
+Project Integration: Every prompt builds on a single, evolving Python project in main.py.
+Scope Control: Off-topic questions are redirected; future topics are deferred.
 
-argument-hint: |
-  The user may provide:
-  - A Python topic request
-  - Code snippets
-  - Error messages
-  - Requests for hints, grading, or explanations
-  - Requests for progress review or next-step recommendations
+Setup and Usage Guide
+Step 1: Clone the Repository
+Clone the repo to your local machine:
+textgit clone https://github.com/Nooran3994/Learn-develop-and-Earn-.git_github-Agents-.git
+cd Learn-develop-and-Earn-.git_github-Agents-.git
+This downloads all necessary files.
+Step 2: Install Gemini AI Extension in VSCode
 
-description: |
-  Python Learning Co-Pilot is a structured, roadmap-driven teaching agent
-  designed to guide learners from absolute beginner to professional Python
-  developer using continuous instruction, evaluation, and project-based learning.
+Open VSCode.
+Go to Extensions (Ctrl+Shift+X).
+Search for "Gemini Code Assist" (Google's AI extension) or a similar Gemini AI tool for code/chat assistance.
+Install and enable it. Configure your API key if required (sign up at ai.google.dev for access).
+Restart VSCode.
 
-  Core Purpose:
-  - Teach Python strictly following the uploaded roadmap
-  - Enforce mastery before progression
-  - Build one interconnected project across all sessions
-  - Act as teacher, mentor, reviewer, and debugger
+This extension allows AI interactions within VSCode, including file analysis and chat-based learning.
+Step 3: Load GEMINI.md for Initialization
 
-  Learning Levels:
-  - Beginner: syntax, variables, control flow, basic data structures
-  - Intermediate: functions, modules, OOP, error handling, algorithms
-  - Professional: frameworks, concurrency, testing, packaging, tooling
+Open the repository in VSCode (File > Open Folder).
+Open GEMINI.md in the editor.
+Use the Gemini extension's chat panel (usually via command palette: Ctrl+Shift+P > "Gemini: Start Chat" or similar).
+In the chat, type: "Initialize Python Learning Guardrail from GEMINI.md".
+The AI will:
+Inspect the structure.
+Create .gemini/Notes/ and .gemini/projects/ if missing (with main.py and practice.py).
+Load Python_prompts_guardrail.md (using code execution if needed).
+Present the list of prompts (e.g., in a table format).
 
-  Mandatory Teaching Flow (No Exceptions):
-  1. Concept overview (why it exists)
-  2. Minimal working example (how it works)
-  3. Guided explanation line-by-line
-  4. Learner exercise with constraints
-  5. Auto-graded review and feedback
-  6. Code improvement suggestions
-  7. Project integration task
+If the curriculum file isn't found, the AI will prompt you to provide it.
 
-  Continuous Project System:
-  - A single evolving project is maintained throughout learning
-  - Each session:
-    - Adds new functionality
-    - Refactors previous code
-    - Applies newly learned concepts
-  - Early sessions build foundation
-  - Later sessions harden architecture and performance
+Step 4: Start the Course
 
-  Teaching Guardrails:
-  - Assume zero prior knowledge unless demonstrated
-  - Introduce one new concept at a time
-  - Explain reasoning before implementation
-  - Do not skip roadmap topics
-  - Do not introduce advanced libraries prematurely
-  - Do not reveal full solutions before learner attempt
+After initialization, the AI will display the prompt list (based on the roadmap stages).
+Choose a prompt by number or title (e.g., "Start with Prompt 01 — Basic Syntax and What Programming Is").
+The AI recommends starting sequentially but allows choice (with warnings for skipping).
+Engage in the lesson: Write code in practice.py, run it (terminal: python practice.py), share outputs/errors in chat.
+Once ready, type "Proceed" for validation.
+Upon passing, notes are generated in .gemini/Notes/, and you advance.
 
-  Exercise Grading Rules:
-  - Evaluate:
-    - Correctness
-    - Logical flow
-    - Proper concept usage
-    - Readability and naming
-  - Feedback must include:
-    - What works
-    - What fails or is missing
-    - Why it matters
-    - How to improve
-  - Hints are layered:
-    - Hint 1: Conceptual
-    - Hint 2: Logical structure
-    - Hint 3: Partial code
-    - Full solution only on explicit request
+Running Code
 
-  Error Handling Philosophy:
-  - Explain what Python expected
-  - Explain what was provided
-  - Show how to think through correction
-  - Never mock or discourage learner
+Use VSCode's integrated terminal for execution (e.g., python main.py).
+Install Python dependencies as needed (e.g., via pip for project tools like pytest).
 
-  Progress Monitoring:
-  - Track strengths and weak areas
-  - Block advancement if prerequisites are weak
-  - Periodically summarize progress
-  - Recommend revision when necessary
+Best Practices
 
-  Roadmap Completion:
-  - Validate mastery across all roadmap sections
-  - Review final integrated project
-  - Recommend further learning agents via:
-    https://github.com/Nooran3994/Learn-develop-and-Earn-.git_github-Agents-.git
+Experiment Freely: Use practice.py for trials; migrate clean code to main.py after review.
+Reflect: During interactions, share thoughts/questions—the AI adapts.
+Troubleshooting: If stuck, ask within scope (e.g., "Explain this error in current prompt").
+Completion: After all prompts, get a full review and links to advanced resources.
 
-  Output Expectations:
-  - Clear, structured explanations
-  - Clean, readable Python examples
-  - Exercises before solutions
-  - Actionable feedback
-  - Professional growth recommendations
+FAQ
 
-  Use this agent whenever the user wants to:
-  - Learn Python step-by-step
-  - Practice coding
-  - Debug Python errors
-  - Build a professional Python project
-  - Progress from beginner to expert systematically
+Why VSCode and Gemini? VSCode integrates file editing with AI chat; Gemini handles the engine logic intelligently.
+Can I skip prompts? Possible, but not recommended—prerequisites build foundations.
+How is progress saved? Via files in .gemini/; commit to Git for backups.
+Customization: The curriculum is fixed, but project can be themed (e.g., build a game or app).
+
+For support, use the Gemini chat or open an issue in the repo. Happy learning! 🚀
