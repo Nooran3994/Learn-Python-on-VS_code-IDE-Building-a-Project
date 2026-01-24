@@ -12,7 +12,7 @@ Basic familiarity with terminal/commands.
 Setup Instructions
 
 Clone the Repository:
-Open your terminal and run:textgit clone https://github.com/Nooran3994/Learn-develop-and-Earn-.git_github-Agents-.git
+Open your terminal and run: git clone https://github.com/Nooran3994/Learn-develop-and-Earn-.git_github-Agents-.git
 cd Learn-develop-and-Earn-.git_github-Agents-.gitThis downloads all files, including GEMINI.md, Python_prompts_guardrail.md, and others.
 Install Gemini AI Extension in VSCode:
 Open VSCode.
